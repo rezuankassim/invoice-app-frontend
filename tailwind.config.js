@@ -26,6 +26,10 @@ module.exports = {
           'light-gray': '#F8F8FB',
           'dark-navy-blue': '#141625',
           'green': '#33D69F',
+          'dark-gray': '#373B53',
+          'grayer': '#494E6E',
+          'orange': '#FF8F00',
+          'darker-gray': '#373B53',
         }
       },
       fontFamily: {
@@ -55,6 +59,9 @@ module.exports = {
       },
       maxWidth: {
         '2.5xl': '45.625rem',
+      },
+      borderRadius: {
+        '2.5xl': '1.25rem',
       },
       boxShadow: {
         'theme': '0px 10px 10px -10px rgba(72, 84, 159, 0.100397)',
