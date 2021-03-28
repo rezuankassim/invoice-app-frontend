@@ -35,6 +35,9 @@ module.exports = {
           orange: "#FF8F00",
           "darker-gray": "#373B53",
           "lighter-gray": "#F9FAFE",
+          transparent: "rgba(0,0,0,0.0001)",
+          "transparent-darker": "rgba(0,0,0,0.1)",
+          "blueish-gray": "#777F98",
         },
       },
       fontFamily: {
@@ -67,6 +70,13 @@ module.exports = {
           {
             letterSpacing: "-0.8px",
             lineHeight: "24px",
+          },
+        ],
+        lg: [
+          "18",
+          {
+            letterSpacing: "-0.38px",
+            lineHeight: "32px",
           },
         ],
         xl: [
