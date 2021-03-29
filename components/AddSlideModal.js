@@ -25,7 +25,6 @@ export default function AddSlideModal({ show, setShow }) {
     if (show === true) {
       setScroll("h-screen overflow-y-hidden");
       document.querySelector("#slideOverModal").classList.add("inset-0");
-      console.log(slide.current.querySelector("#content"));
     } else {
       setScroll("");
 
