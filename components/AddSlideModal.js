@@ -7,10 +7,12 @@ import Group from "./forms/Group";
 import Text from "./forms/Text";
 import Delete from "@/components/icons/Delete.js";
 import Select from "./forms/Select";
+import Date from "./forms/Date";
 
 export default function AddSlideModal({ show, setShow }) {
   const { scroll, setScroll } = useContext(ScrollContext);
   const [showGradient, setShowGradient] = useState(true);
+  const [issueDate, setIssueDate] = useState();
   const [paymentTerms, setPaymentTerms] = useState();
   const [items, setItems] = useState([]);
   const slide = createRef();
@@ -20,6 +22,17 @@ export default function AddSlideModal({ show, setShow }) {
     { value: 14, label: "Net 14 Days" },
     { value: 30, label: "Net 30 Days" },
   ];
+
+  const resetFormState = () => {
+    setIssueDate();
+    setPaymentTerms();
+    setItems([]);
+  };
+
+  const discard = () => {
+    setShow(false);
+    resetFormState();
+  };
 
   useEffect(() => {
     if (show === true) {
@@ -46,7 +59,7 @@ export default function AddSlideModal({ show, setShow }) {
   };
 
   const deleteItem = (index) => {
-    items.splice(index);
+    items.splice(index, 1);
 
     setItems([...items]);
   };
@@ -85,13 +98,13 @@ export default function AddSlideModal({ show, setShow }) {
             leave="transform transition ease-in-out duration-500 sm:duration-700"
             leaveFrom="translate-x-0"
             leaveTo="-translate-x-full"
-            className="absolute overflow-hidden inset-y-0 left-0 max-w-full flex"
+            className="absolute overflow-y-hidden inset-y-0 left-0 max-w-full flex"
           >
             <div className="relative overflow-hidden w-screen max-w-[719px]">
               <div className="relative overflow-hidden w-full h-screen flex flex-col pl-[156px] pr-12 pt-14 pb-6 bg-white rounded-r-2.5xl shadow-xl">
                 <div>
                   <h2
-                    className="text-2xl font-bold text-theme-black"
+                    className="ml-4 text-2xl font-bold text-theme-black"
                     id="slide-over-title"
                   >
                     New Invoice
@@ -106,7 +119,7 @@ export default function AddSlideModal({ show, setShow }) {
                       : setShowGradient(true)
                   }
                 >
-                  <div className="mr-4 absolute inset-0 gap-y-12">
+                  <div className="mx-4 absolute inset-0 gap-y-12">
                     <div className="grid grid-cols-6 gap-6">
                       <div className="col-span-6">
                         <p className="font-bold text-xs text-theme-primary">
@@ -207,7 +220,7 @@ export default function AddSlideModal({ show, setShow }) {
                     <div className="mt-12 grid grid-cols-6 gap-6">
                       <div className="col-span-3">
                         <Group forId="invoice_date" label="Invoice Date">
-                          <Text id="invoice_date" name="invoice_date" />
+                          <Date date={issueDate} setDate={setIssueDate} />
                         </Group>
                       </div>
 
@@ -231,28 +244,30 @@ export default function AddSlideModal({ show, setShow }) {
 
                       <table className="mt-2 w-full">
                         <thead>
-                          <th className="pr-4 pt-2 pb-2 w-[231px] font-medium text-xs text-theme-indigo text-left">
-                            Item Name
-                          </th>
+                          <tr>
+                            <th className="pr-4 pt-2 pb-2 w-[231px] font-medium text-xs text-theme-indigo text-left">
+                              Item Name
+                            </th>
 
-                          <th className="pr-4 pt-2 pb-2 w-[70px] font-medium text-xs text-theme-indigo text-left">
-                            Qty.
-                          </th>
+                            <th className="pr-4 pt-2 pb-2 w-[70px] font-medium text-xs text-theme-indigo text-left">
+                              Qty.
+                            </th>
 
-                          <th className="pr-4 pt-2 pb-2 w-[117px] font-medium text-xs text-theme-indigo text-left">
-                            Price
-                          </th>
+                            <th className="pr-4 pt-2 pb-2 w-[117px] font-medium text-xs text-theme-indigo text-left">
+                              Price
+                            </th>
 
-                          <th className="pr-4 pt-2 pb-2 w-[73px] font-medium text-xs text-theme-indigo text-left">
-                            Total
-                          </th>
+                            <th className="pr-4 pt-2 pb-2 w-[73px] font-medium text-xs text-theme-indigo text-left">
+                              Total
+                            </th>
 
-                          <th className="pt-2 pb-2 w-[39px] font-medium text-xs text-theme-indigo text-right"></th>
+                            <th className="pt-2 pb-2 w-[39px] font-medium text-xs text-theme-indigo text-right"></th>
+                          </tr>
                         </thead>
 
                         <tbody>
                           {items.map((item, index) => (
-                            <tr>
+                            <tr key={`item-row-${index}`}>
                               <td className="pr-4 pt-2 pb-2">
                                 <Text
                                   id={`item_name_${index}`}
@@ -309,7 +324,8 @@ export default function AddSlideModal({ show, setShow }) {
                 <div className="absolute inset-x-0 bottom-0 flex items-center justify-between space-x-2 w-full pl-[159px] pr-16 py-[31px] rounded-r-2.5xl bg-white">
                   <SecondaryButton
                     padding="pl-[25.5px] pr-[26.5px] pt-[17px] pb-4"
-                    onClick={() => setShow(false)}
+                    className="ml-4"
+                    onClick={() => discard()}
                   >
                     Discard
                   </SecondaryButton>

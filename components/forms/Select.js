@@ -51,7 +51,7 @@ export default function Select({
                       <div
                         className={`${
                           active ? "text-theme-primary" : "text-theme-black"
-                        } cursor-default select-none relative px-6 py-4`}
+                        } cursor-pointer select-none relative px-6 py-4`}
                       >
                         <span
                           className={`${
